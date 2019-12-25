@@ -46,6 +46,7 @@ public class jackAttackScript : MonoBehaviour {
     void Awake () {
         moduleId = moduleIdCounter++;
         Button.OnInteract += delegate () { PressButton(); return false; };
+        Bomb.OnBombExploded += delegate { StopAllCoroutines(); OnExplode(); };
     }
 
     // Use this for initialization
@@ -191,6 +192,15 @@ public class jackAttackScript : MonoBehaviour {
             }
         }
 	}
+
+    void OnExplode()
+    {
+        if (soundEffect != null)
+        {
+            soundEffect.StopSound();
+            soundEffect = null;
+        }
+    }
 
     void PressButton () {
         Button.AddInteractionPunch();
